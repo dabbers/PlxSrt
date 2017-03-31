@@ -44,6 +44,7 @@ def getDestinationPathForFile(filename, path, osshim):
 
 def detect(filename, path, osshim): #{
     source = os.path.join(path, filename)
+    #print filename + ' ' + path
     print("Checking: " + source)
     if (osshim.isdir(source)):
         dirs = osshim.listdir(source)
@@ -86,15 +87,19 @@ def detect(filename, path, osshim): #{
                     for subfile in dirs:
                         fle = os.path.basename(subfile)
                         results.extend(detect(fle, source, osshim))
+                elif (osshim.allowFolderLink()):
+                    results.append({"Result":True, "Output": osshim.link( source, destpath, destpath )})
                 else:
-                    results.append({"Result":True, "Output": osshim.link( source, destpath )})
-
+                    media = filter(_isMedia, dirs)
+                    for subfile in media:
+                        fle = os.path.basename(subfile)
+                        results.extend(detect(fle, source, osshim))
         return results
     else:
         if (_isZip(source)):
             return [{ "Result":True, "Output":osshim.extract(source, os.path.normpath(getDestinationPathForFile(filename, path, osshim))) }]
         elif (_isMedia(source) or _isSubtitle(source)):
-            return [{ "Result":True, "Output":osshim.link( source, os.path.normpath(os.path.join( getDestinationPathForFile(filename, path, osshim), filename) )) }]
+            return [{ "Result":True, "Output":osshim.link( source, os.path.normpath(os.path.join( getDestinationPathForFile(filename, path, osshim), filename) ), os.path.normpath(getDestinationPathForFile(filename, path, osshim))) }]
         elif (_isKnownNoOp(source)):
             return []
         else:

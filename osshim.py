@@ -32,7 +32,7 @@ def tvFolder():
 	else:
 		return "/media/MediaTransfer/TV Shows/"
 
-def link(source, target):
+def link(source, target, targetdir):
     if (platform.system() == "Windows"):
         cmd = 'mklink '
         flag = "/H"
@@ -42,11 +42,17 @@ def link(source, target):
         cmd += quote_args([flag, source, target])
         os.system(cmd)
     else:
-        cmd = 'ln ' + pipes.quote(source) +' '+ pipes.quote(target)
-        print cmd
+        cmd = 'mkdir ' + pipes.quote(targetdir)
+        #print cmd
+        os.system(cmd)
+        cmd = 'ln ' + pipes.quote(source) +' '+ pipes.quote(targetdir)
+        #print cmd
+        os.system(cmd)
+        cmd = 'chmod 775 ' + pipes.quote(target)
+        #print cmd
         os.system(cmd)
 
-    return "linked " + source + " => " + target
+    return "linked " + source + " => " + targetdir
 
 def listdir(path):
     return os.listdir(path)
@@ -54,6 +60,11 @@ def listdir(path):
 def isdir(path):
     return os.path.isdir(path)
 
+def allowFolderLink():
+    if (sys.platform == "win32"):
+        return True
+    else:
+        return False
 
 def extract(source, target):
     if (platform.system() == "Windows"):
