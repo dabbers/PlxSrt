@@ -1,6 +1,7 @@
 import os
 import sys
 import platform
+import pipes
 
 ###
 ### The point of this file is to abstract out our OS level calls so we can shim
@@ -20,10 +21,16 @@ else:
 
 
 def movieFolder():
-    return r"C:\Media\"
+	if (sys.platform == "win32"):
+		return "C:\\Media\\"
+	else:
+		return "/media/MediaTransfer/Movies"
 
 def tvFolder():
-    return r"C:\Media\TV\"
+	if (sys.platform == "win32"):
+		return "C:\\Media\\TV"
+	else:
+		return "/media/MediaTransfer/TV Shows/"
 
 def link(source, target):
     if (platform.system() == "Windows"):
@@ -33,13 +40,13 @@ def link(source, target):
             flag = "/J"
         
         cmd += quote_args([flag, source, target])
-
         os.system(cmd)
     else:
-        cmd = 'ln ' + sourcedir + '/' + filename +' '+ target
+        cmd = 'ln ' + pipes.quote(source) +' '+ pipes.quote(target)
+        print cmd
         os.system(cmd)
 
-    return "linked " + source + " => " target
+    return "linked " + source + " => " + target
 
 def listdir(path):
     return os.listdir(path)
@@ -55,7 +62,7 @@ def extract(source, target):
     else:
         b = []
     
-    return "extracted " + source + " => " target
+    return "extracted " + source + " => " + target
 
 def findShow(showName):
     return ""
