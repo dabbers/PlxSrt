@@ -51,6 +51,9 @@ def link(source, target, targetdir):
         cmd = 'chmod 775 ' + pipes.quote(target)
         #print cmd
         os.system(cmd)
+        cmd = 'chmod 775 ' + pipes.quote(targetdir)
+        #print cmd
+        os.system(cmd)
 
     return "linked " + source + " => " + targetdir
 
