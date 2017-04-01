@@ -104,7 +104,16 @@ fstruct = {
                     "sn11ep2-yd.rar": True,
                 },
             },
-
+            "The Show - Complete": {
+                "The Show - Season 1" : {
+                    "Show, The - S1E01 - Pilot.avi": True,
+                    "Show, The - S1E02 - Second.avi":True,
+                },
+                "The Show - Season 2" : {
+                    "Show, The - S2E01 - Pilot.avi": True,
+                    "Show, The - S2E02 - Second.avi":True,
+                }
+            }
         },
         "Media": {
             "Movies": {
@@ -122,7 +131,8 @@ shim = testosshim(fstruct)
 #print(detector.detect("test.show.s01e01.mkv", "C:\\downloads\\", shim))
 #print(detector.detect("The.Test.Show.With.Yo.Momma.2017.03.22.Yo.Momma", "C:\\downloads\\", shim))
 
-print(detector.detect("Don't look down", "C:\\downloads\\", shim))
-print(detector.detect("Test.Movie.23.2017.UHD.1337", "C:\\downloads\\", shim))
-print(detector.detect("S01_-_Complete", "C:\\downloads\\", shim))
-print(detector.detect("Season_11-COMPLETE", "C:\\downloads\\", shim))
+# print(detector.detect("Don't look down", "C:\\downloads\\", shim))
+# print(detector.detect("Test.Movie.23.2017.UHD.1337", "C:\\downloads\\", shim))
+# print(detector.detect("S01_-_Complete", "C:\\downloads\\", shim))
+# print(detector.detect("Season_11-COMPLETE", "C:\\downloads\\", shim))
+print(detector.detect("The Show - Complete", "C:\\downloads\\", shim))

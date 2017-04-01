@@ -78,12 +78,16 @@ def detect(filename, path, osshim): #{
                     fle = os.path.basename(subfile)
                     results.extend(detect(fle, source, osshim))
             else:
+
                 destpath = os.path.normpath(getDestinationPathForFile(filename, path, osshim))
+
+                # check if maybe we parsed this current path incorrectly and a look at a file might correct it.
+                secondlook_destpath = os.path.normpath(getDestinationPathForFile(dirs[0], os.path.join(path, filename), osshim)) if len(dirs) > 0 else destpath
 
                 # If we're merging this source into an existing source, don't symlink over it.
                 # Ie: IF we already extracted a tv episode into this Season, and this source is the rest of a season,
                 # Don't just symlink it since the Season folder will already exist.
-                if (osshim.isdir(destpath)):
+                if (osshim.isdir(destpath) or destpath != secondlook_destpath):
                     for subfile in dirs:
                         fle = os.path.basename(subfile)
                         results.extend(detect(fle, source, osshim))
