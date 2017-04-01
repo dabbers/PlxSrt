@@ -12,8 +12,8 @@ class testosshim:
     def tvFolder(self):
         return r"C:\Media\TV\\"
 
-    def link(self, source, target):
-        return "Linking " + source + " => " + target
+    def link(self, source, target, targetdir):
+        return {"action":"link", "source": source, "target":target, "targetdir":targetdir}
 
 
     def listdir(self, path):
@@ -45,7 +45,7 @@ class testosshim:
         return cd[parts[-1]] != True
 
     def extract(self, source, target):
-        return "Extracting " + source + " => " + target
+        return {"action":"extract", "source": source, "target":target}
 
     def getApiKey(self):
         return ""
@@ -127,12 +127,56 @@ fstruct = {
 }
 shim = testosshim(fstruct)
 
-#print(detector.detect("Test.Show.3.S01E02", "C:\\downloads\\", shim))
-#print(detector.detect("test.show.s01e01.mkv", "C:\\downloads\\", shim))
-#print(detector.detect("The.Test.Show.With.Yo.Momma.2017.03.22.Yo.Momma", "C:\\downloads\\", shim))
+tests_input_expected = [
+    { 
+        "input": { "name": "Test.Show.3.S01E02", "path": "C:\\downloads\\" },
+        "expected": [
+            {
+                'Output': {
+                    'action': 'extract', 
+                    'source': 'C:\\downloads\\Test.Show.3.S01E02\\test.show.3.s01e02.part1.rar', 
+                    'target': 'C:\\Media\\TV\\Test Show 3\\Season 1'
+                }, 
+                'Result': True
+            }
+        ]
+    }
+]
 
-# print(detector.detect("Don't look down", "C:\\downloads\\", shim))
-# print(detector.detect("Test.Movie.23.2017.UHD.1337", "C:\\downloads\\", shim))
-# print(detector.detect("S01_-_Complete", "C:\\downloads\\", shim))
-# print(detector.detect("Season_11-COMPLETE", "C:\\downloads\\", shim))
-print(detector.detect("The Show - Complete", "C:\\downloads\\", shim))
+
+for test in tests_input_expected:
+    result = detector.detect(test["input"]["name"], test["input"]["path"], shim)
+    if (result == test["expected"]):
+        print("Test " + test["input"]["name"] + " passed")
+    else:
+        print("**** Test " + test["input"]["name"] + " failed")
+        print(result)
+
+# res = detector.detect("test.show.s01e01.mkv", "C:\\downloads\\", shim)
+# if (len(res) > 0):
+#     print(res)
+
+# res = detector.detect("The.Test.Show.With.Yo.Momma.2017.03.22.Yo.Momma", "C:\\downloads\\", shim)
+# if (len(res) > 0):
+#     print(res)
+
+
+# res = detector.detect("Don't look down", "C:\\downloads\\", shim)
+# if (len(res) > 0):
+#     print(res)
+
+# res = detector.detect("Test.Movie.23.2017.UHD.1337", "C:\\downloads\\", shim)
+# if (len(res) > 0):
+#     print(res)
+
+# res = detector.detect("S01_-_Complete", "C:\\downloads\\", shim)
+# if (len(res) > 0):
+#     print(res)
+
+# res = detector.detect("Season_11-COMPLETE", "C:\\downloads\\", shim)
+# if (len(res) > 0):
+#     print(res)
+
+# res = detector.detect("The Show - Complete", "C:\\downloads\\", shim)
+# if (len(res) > 0):
+#     print(res)

@@ -2,10 +2,16 @@ import os
 import sys
 import re
 import tvparser
+
+# List of extensions that count as a "zip" or compressed file
 _zips = [".rar", ".zip", ".gz", ".tar"]
+# All extensions that should be copied over (that don't contain sample)
 _media = [".mkv", ".avi", ".mp4", ".webm"]
+#Subtitle extensions
 _sub = [".sub", ".idx", ".srt"]
-_ignore = [".nfo", ".sfv", ".txt", ".doc", ".rtf"]
+# File types we expect to not have to handle. Other files will be processed.
+_ignore = [".nfo", ".sfv", ".txt", ".doc", ".docx", ".rtf"]
+
 def _isZip(fullpath): # {
     fn, ext = os.path.splitext(fullpath.lower())
     return (ext in _zips)
@@ -39,7 +45,10 @@ def getDestinationPathForFile(filename, path, osshim):
         return os.path.join( osshim.movieFolder(), tvparser.getCleanNameFromPath(fullpath))
     else:
         # TV goes in TV\Show Name\Season ##\Episode.##.mkv
-        return os.path.join( osshim.tvFolder(), tv.show, "Season " + str(int(tv.season)))
+        if (int(tv.season) < 1000):
+            return os.path.join( osshim.tvFolder(), tv.show, "Season " + str(int(tv.season)))
+        
+        return os.path.join( osshim.tvFolder(), tv.show, str(int(tv.season)))
 
 
 def detect(filename, path, osshim): #{
@@ -91,8 +100,8 @@ def detect(filename, path, osshim): #{
                     for subfile in dirs:
                         fle = os.path.basename(subfile)
                         results.extend(detect(fle, source, osshim))
-                elif (osshim.allowFolderLink()):
-                    results.append({"Result":True, "Output": osshim.link( source, destpath, destpath )})
+                #elif (osshim.allowFolderLink()):
+                #    results.append({"Result":True, "Output": osshim.link( source, destpath, destpath )})
                 else:
                     media = filter(_isMedia, dirs)
                     for subfile in media:
