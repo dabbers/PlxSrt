@@ -98,7 +98,7 @@ fstruct = {
                     "sn11ep1-yd.r01": True,
                     "sn11ep1-yd.rar": True,
                 },
-                "Show.Name.1x02.The_Stakeout.DVDRip_Xvid-Fov": {
+                "Show.Name.11x02.The_Stakeout.DVDRip_Xvid-Fov": {
                     "sn11ep2-yd.r00": True,
                     "sn11ep2-yd.r01": True,
                     "sn11ep2-yd.rar": True,
@@ -140,9 +140,153 @@ tests_input_expected = [
                 'Result': True
             }
         ]
+    },
+    { 
+        "input": { "name": "test.show.s01e01.mkv", "path": "C:\\downloads\\" },
+        "expected": [
+            {
+                'Output': {
+                    'action': 'link', 
+                    'source': 'C:\\downloads\\test.show.s01e01.mkv', 
+                    'target': 'C:\\Media\\TV\\test show\\Season 1\\test.show.s01e01.mkv', 
+                    'targetdir': 'C:\\Media\\TV\\test show\\Season 1'
+                }, 
+                'Result': True
+            }
+        ]
+    },
+    { 
+        "input": { "name": "The.Test.Show.With.Yo.Momma.2017.03.22.Yo.Momma", "path": "C:\\downloads\\" },
+        "expected": [
+            {
+                'Output': {
+                    'action': 'extract', 
+                    'source': 'C:\\downloads\\The.Test.Show.With.Yo.Momma.2017.03.22.Yo.Momma\\The.Test.Show.With.Yo.Momma.2017.03.22.Yo.Momma.rar', 
+                    'target': 'C:\\Media\\TV\\The Test Show With Yo Momma\\2017'
+                }, 
+                'Result': True
+            }
+        ]
+    },
+    { 
+        "input": { "name": "Don't look down", "path": "C:\\downloads\\" },
+        "expected": [
+            {
+                'Output': {
+                    'action': 'link', 
+                    'source': "C:\\downloads\\Don't look down\\Don't look down 1080p.mkv", 
+                    'target': "C:\\Media\\Movies\\Don't look down\\Don't look down 1080p.mkv", 
+                    'targetdir': "C:\\Media\\Movies\\Don't look down"
+                }, 
+                'Result': True
+            }
+        ]
+    },
+    { 
+        "input": { "name": "Test.Movie.23.2017.UHD.1337", "path": "C:\\downloads\\" },
+        "expected": [
+            {
+                'Output': {
+                    'action': 'extract', 
+                    'source': 'C:\\downloads\\Test.Movie.23.2017.UHD.1337\\Subs\\Test.Movie.23.2017.UHD.1337.part1.rar', 
+                    'target': 'C:\\Media\\Movies\\Test Movie 23 2017'
+                }, 
+                'Result': True
+            }, 
+            {
+                'Output': {
+                    'action': 'extract', 
+                    'source': 'C:\\downloads\\Test.Movie.23.2017.UHD.1337\\Test.Movie.23.2017.UHD.1337.part1.rar', 
+                    'target': 'C:\\Media\\Movies\\Test Movie 23 2017'
+                }, 
+                'Result': True
+            }
+        ]
+    },
+    { 
+        "input": { "name": "S01_-_Complete", "path": "C:\\downloads\\" },
+        "expected": [
+            {
+                'Output': {
+                    'action': 'extract', 
+                    'source': 'C:\\downloads\\S01_-_Complete\\Show.Name.1x01.The_Stakeout.DVDRip_Xvid-Fov\\Show.Name.1x01.The_Stakeout.DVDRip_Xvid-Fov.rar', 
+                    'target': 'C:\\Media\\TV\\Show Name\\Season 1'
+                }, 
+                'Result': True
+            }, 
+            {
+                'Output': {
+                    'action': 'extract', 
+                    'source': 'C:\\downloads\\S01_-_Complete\\Show.Name.1x02.The_Stakeout.DVDRip_Xvid-Fov\\Show.Name.1x02.The_Stakeout2.DVDRip_Xvid-Fov.rar', 
+                    'target': 'C:\\Media\\TV\\Show Name\\Season 1'
+                }, 
+                'Result': True
+            }
+        ]
+    },
+    { 
+        "input": { "name": "Season_11-COMPLETE", "path": "C:\\downloads\\" },
+        "expected": [
+            {
+                'Output': {
+                    'action': 'extract',
+                    'source': 'C:\\downloads\\Season_11-COMPLETE\\Show.Name.11x01.The_Stakeout.DVDRip_Xvid-Fov\\sn11ep1-yd.rar', 
+                    'target': 'C:\\Media\\TV\\Show Name\\Season 11'
+                },
+                'Result': True
+            },
+            {
+                'Output': {
+                    'action': 'extract', 
+                    'source': 'C:\\downloads\\Season_11-COMPLETE\\Show.Name.11x02.The_Stakeout.DVDRip_Xvid-Fov\\sn11ep2-yd.rar', 
+                    'target': 'C:\\Media\\TV\\Show Name\\Season 11'
+                },
+                'Result': True
+            }
+        ]
+    },
+    { 
+        "input": { "name": "The Show - Complete", "path": "C:\\downloads\\" },
+        "expected": [
+            {
+                'Output': {
+                    'action': 'link', 
+                    'source': 'C:\\downloads\\The Show - Complete\\The Show - Season 2\\Show, The - S2E01 - Pilot.avi', 
+                    'target': 'C:\\Media\\TV\\Show, The -\\Season 2\\Show, The - S2E01 - Pilot.avi', 
+                    'targetdir': 'C:\\Media\\TV\\Show, The -\\Season 2'
+                }, 
+                'Result': True
+            }, 
+            {
+                'Output': {
+                    'action': 'link',
+                    'source': 'C:\\downloads\\The Show - Complete\\The Show - Season 2\\Show, The - S2E02 - Second.avi', 
+                    'target': 'C:\\Media\\TV\\Show, The -\\Season 2\\Show, The - S2E02 - Second.avi', 
+                    'targetdir': 'C:\\Media\\TV\\Show, The -\\Season 2'
+                }, 
+                'Result': True
+            }, 
+            {
+                'Output': {
+                    'action': 'link', 
+                    'source': 'C:\\downloads\\The Show - Complete\\The Show - Season 1\\Show, The - S1E02 - Second.avi', 
+                    'target': 'C:\\Media\\TV\\Show, The -\\Season 1\\Show, The - S1E02 - Second.avi', 
+                    'targetdir': 'C:\\Media\\TV\\Show, The -\\Season 1'
+                }, 
+                'Result': True
+            }, 
+            {
+                'Output': {
+                    'action': 'link', 
+                    'source': 'C:\\downloads\\The Show - Complete\\The Show - Season 1\\Show, The - S1E01 - Pilot.avi', 
+                    'target': 'C:\\Media\\TV\\Show, The -\\Season 1\\Show, The - S1E01 - Pilot.avi', 
+                    'targetdir': 'C:\\Media\\TV\\Show, The -\\Season 1'
+                },
+                'Result': True
+            }
+        ]
     }
 ]
-
 
 for test in tests_input_expected:
     result = detector.detect(test["input"]["name"], test["input"]["path"], shim)
@@ -151,32 +295,3 @@ for test in tests_input_expected:
     else:
         print("**** Test " + test["input"]["name"] + " failed")
         print(result)
-
-# res = detector.detect("test.show.s01e01.mkv", "C:\\downloads\\", shim)
-# if (len(res) > 0):
-#     print(res)
-
-# res = detector.detect("The.Test.Show.With.Yo.Momma.2017.03.22.Yo.Momma", "C:\\downloads\\", shim)
-# if (len(res) > 0):
-#     print(res)
-
-
-# res = detector.detect("Don't look down", "C:\\downloads\\", shim)
-# if (len(res) > 0):
-#     print(res)
-
-# res = detector.detect("Test.Movie.23.2017.UHD.1337", "C:\\downloads\\", shim)
-# if (len(res) > 0):
-#     print(res)
-
-# res = detector.detect("S01_-_Complete", "C:\\downloads\\", shim)
-# if (len(res) > 0):
-#     print(res)
-
-# res = detector.detect("Season_11-COMPLETE", "C:\\downloads\\", shim)
-# if (len(res) > 0):
-#     print(res)
-
-# res = detector.detect("The Show - Complete", "C:\\downloads\\", shim)
-# if (len(res) > 0):
-#     print(res)

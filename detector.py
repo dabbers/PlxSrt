@@ -54,7 +54,7 @@ def getDestinationPathForFile(filename, path, osshim):
 def detect(filename, path, osshim): #{
     source = os.path.join(path, filename)
     #print filename + ' ' + path
-    print("Checking: " + source)
+    #print("Checking: " + source)
     if (osshim.isdir(source)):
         dirs = osshim.listdir(source)
 
