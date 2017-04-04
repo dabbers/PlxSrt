@@ -12,15 +12,15 @@ class TvShowResult:
 
 __regexes = [
     # Most common pattern. Usually show.name.s01e01.format.ext
-    { "rgx": re.compile("([\w\.,\- ]+?).[Ss](\d+)[Ee](\d+)[^\d]"), "show":0, "season":1, "episode":2 },
+    { "rgx": re.compile("([\w\.,\- ']+?).[Ss](\d+)[Ee](\d+)[^\d]"), "show":0, "season":1, "episode":2 },
     # Sometimes common pattern. Usually show.name.01x01.format.ext
-    { "rgx": re.compile("([\w\.,\- ]+?).(\d+)[Xx](\d+)[^\d]"), "show":0, "season":1, "episode":2 },
+    { "rgx": re.compile("([\w\.,\- ']+?).(\d+)[Xx](\d+)[^\d]"), "show":0, "season":1, "episode":2 },
     # Uncommon format, usually show.name.S01ep01.format.ext
-    { "rgx": re.compile("([\w\.,\- ]+?).S(\d+)ep(\d+)[^\d]"), "show":0, "season":1, "episode":2 },
+    { "rgx": re.compile("([\w\.,\- ']+?).S(\d+)ep(\d+)[^\d]"), "show":0, "season":1, "episode":2 },
     # Episode with year as season. show.name.2017.03.17.format.ext
-    { "rgx": re.compile("([\w\.,\- ]+?).(\d{4}).(\d{2}.\d{2})[^\d]"), "show":0, "season":1, "episode":2 },
+    { "rgx": re.compile("([\w\.,\- ']+?).(\d{4}).(\d{2}.\d{2})[^\d]"), "show":0, "season":1, "episode":2 },
     # Common format for only seasons. show.name.S01
-    { "rgx": re.compile("([\w\.,\- ]+?).[Ss](\d{2,})[^\d]"), "show":0, "season":1, "episode":-1 },
+    { "rgx": re.compile("([\w\.,\- ']+?).[Ss](\d{2,})[^\d]"), "show":0, "season":1, "episode":-1 },
     # Might start at beginning of regex. No starting . intentional
     { "rgx": re.compile("[Ss](\d+)[Ee](\d+)[^\d]{0,}"), "show":0, "season":0, "episode":1 },
     # Might start at beginning of regex. No starting . intentional
