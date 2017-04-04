@@ -20,7 +20,7 @@ __regexes = [
     # Episode with year as season. show.name.2017.03.17.format.ext
     { "rgx": re.compile("([\w\.,\- ]+?).(\d{4}).(\d{2}.\d{2})[^\d]"), "show":0, "season":1, "episode":2 },
     # Common format for only seasons. show.name.S01
-    { "rgx": re.compile("([\w\.,\- ]+?).[Ss](\d{2,})[^\d]"), "show":0, "season":1, "episode":2 },
+    { "rgx": re.compile("([\w\.,\- ]+?).[Ss](\d{2,})[^\d]"), "show":0, "season":1, "episode":-1 },
     # Might start at beginning of regex. No starting . intentional
     { "rgx": re.compile("[Ss](\d+)[Ee](\d+)[^\d]{0,}"), "show":0, "season":0, "episode":1 },
     # Might start at beginning of regex. No starting . intentional
@@ -68,7 +68,7 @@ def getSeasonAndEpisode(name):
     #res = __show_reg1.findall(name)
     tvres = None
     res = False
-
+    print name
     for r in __regexes:
         res = r["rgx"].findall(name)
         if (len(res) >= 1):
