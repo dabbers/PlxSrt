@@ -36,7 +36,7 @@ def getCleanNameFromPath(fullpath):
 
     if (tv == None or len(name.strip()) == 0):
         name = cleanWithRegex(os.path.splitext(os.path.basename(fullpath))[0])
-    
+
     return name
 
 def cleanWithRegex(name):
@@ -49,7 +49,7 @@ def findTvShowName(fullPath):
     return tv
 
 def isTvShow(fullpath):
-    # Try finding the show name by filename, then by the rest of the path. 
+    # Try finding the show name by filename, then by the rest of the path.
     # Pathname usually gets less vague close to the file name.
     parts = os.path.normpath(fullpath).split(os.path.sep)
     tv = None
@@ -59,7 +59,7 @@ def isTvShow(fullpath):
 
         if (tv != None):
             break
-    
+
     # Not every file/path might return an episode
     return tv
 
@@ -74,7 +74,7 @@ def getSeasonAndEpisode(name):
         if (len(res) >= 1):
             tvres = TvShowResult( (res[0][r["show"]] if r["show"] != -1 else ""), (res[0][r["season"]] if r["season"] != -1 else ""), (res[0][r["episode"]] if r["episode"] != -1 else "")  )
             break
-    
+
     if (tvres != None):
         tvres.show = cleanWithRegex(tvres.show)
 

@@ -5,8 +5,8 @@ import pipes
 
 ###
 ### The point of this file is to abstract out our OS level calls so we can shim
-### in some test methods. #testing 
-### 
+### in some test methods. #testing
+###
 mswindows = (sys.platform == "win32")
 
 if mswindows:
@@ -21,16 +21,16 @@ else:
 
 
 def movieFolder():
-	if (sys.platform == "win32"):
-		return "C:\\Media\\"
-	else:
-		return "/media/MediaTransfer/Movies"
+    if (sys.platform == "win32"):
+        return "C:\\Media\\"
+    else:
+        return "/media/MediaTransfer/Movies"
 
 def tvFolder():
-	if (sys.platform == "win32"):
-		return "C:\\Media\\TV"
-	else:
-		return "/media/MediaTransfer/TV Shows/"
+    if (sys.platform == "win32"):
+        return "C:\\Media\\TV"
+    else:
+        return "/media/MediaTransfer/TV Shows/"
 
 def makeSureTargetDirExists(targetdir):
     if isdir(targetdir):
@@ -50,7 +50,7 @@ def link(source, target, targetdir):
         flag = "/H"
         if (os.path.isdir(source)):
             flag = "/J"
-        
+
         cmd += quote_args([flag, source, target])
         os.system(cmd)
     else:
@@ -87,7 +87,7 @@ def extract(source, target):
         a = []
     else:
         b = []
-    
+
     return "extracted " + source + " => " + target
 
 def findShow(showName):

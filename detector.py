@@ -47,7 +47,7 @@ def getDestinationPathForFile(filename, path, osshim):
         # TV goes in TV\Show Name\Season ##\Episode.##.mkv
         if (int(tv.season) < 1000):
             return os.path.join( osshim.tvFolder(), tv.show, "Season " + str(int(tv.season)))
-        
+
         return os.path.join( osshim.tvFolder(), tv.show, str(int(tv.season)))
 
 
@@ -72,7 +72,7 @@ def detect(filename, path, osshim): #{
             for sub in subs:
                 flee = os.path.basename(sub)
                 results.extend(detect(flee, source, osshim))
-            
+
             fle = os.path.basename(rars[0])
             results.extend(detect(fle, source, osshim))
         elif (len(rars) > 0):
