@@ -1,5 +1,6 @@
 import re
 import os
+from osshim import debuglog
 
 
 nameRgx = re.compile("(.*).(720p|720|1080p|1080|BluRay|BRRip|BRRp|BDRip|bdrip|BDRp|bdrp|DVDRip|HDTV|HD|UHD|dvdrip|bluray|brrip|dvdscr|DVDScr|Web|WebRip|webrip|Webrip|WEBRip).*")
@@ -68,7 +69,7 @@ def getSeasonAndEpisode(name):
     #res = __show_reg1.findall(name)
     tvres = None
     res = False
-    print name
+    debuglog(name)
     for r in __regexes:
         res = r["rgx"].findall(name)
         if (len(res) >= 1):
