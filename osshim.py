@@ -34,7 +34,7 @@ def movieFolder():
         if env_movie:
             return env_movie
         else:
-            return "~/test/Movies"
+            return "/media/MediaTransfer/Movies/"
 
 def tvFolder():
     if (sys.platform == "win32"):
