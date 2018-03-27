@@ -26,26 +26,25 @@ else:
 
 
 def movieFolder():
+    # check to see if the user passes in a movies directory
+    env_movie = os.environ.get('MOVIE')
+    if env_movie:
+        return env_movie
+    
     if (sys.platform == "win32"):
         return "C:\\Media\\"
     else:
-        # check to see if the user passes in a movies directory
-        env_movie = os.environ.get('MOVIE')
-        if env_movie:
-            return env_movie
-        else:
-            return "/media/MediaTransfer/Movies/"
+        return "/media/MediaTransfer/Movies/"
 
 def tvFolder():
+    env_tv = os.environ.get('TV')
+    if env_tv:
+        return env_tv
+    
     if (sys.platform == "win32"):
         return "C:\\Media\\TV"
     else:
-        # check to see if the user passes in a TV directory
-        env_tv = os.environ.get('TV')
-        if tv:
-            return tv
-        else:
-            return "/media/MediaTransfer/TV Shows/"
+        return "/media/MediaTransfer/TV Shows/"
 
 def makeSureTargetDirExists(targetdir):
     if isdir(targetdir):
