@@ -49,9 +49,7 @@ def tvFolder():
 def makeSureTargetDirExists(targetdir):
     if isdir(targetdir):
         return
-    pathparts = os.path.split(targetdir)
-    makeSureTargetDirExists(pathparts[0])
-    os.system('mkdir ' + pipes.quote(targetdir))
+    os.makedirs(targetdir)
     debuglog('mkdir ' + pipes.quote(pathparts[1]))
     if (platform.system() != "Windows"):
         os.system('chmod 775 ' + pipes.quote(targetdir))
@@ -65,7 +63,7 @@ def link(source, target, targetdir):
         if (os.path.isdir(source)):
             flag = "/J"
 
-        cmd += quote_args([flag, source, target])
+        cmd += quote_args([flag, target, source])
         os.system(cmd)
     else:
         #cmd = 'mkdir ' + pipes.quote(targetdir)
