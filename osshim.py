@@ -5,9 +5,14 @@ import pipes
 
 ###
 ### The point of this file is to abstract out our OS level calls so we can shim
-### in some test methods. #testing 
-### 
+### in some test methods. #testing
+###
 mswindows = (sys.platform == "win32")
+
+def debuglog(log):
+    if not os.environ.get("DEBUG"):
+        return
+    print(log)
 
 if mswindows:
     from subprocess import list2cmdline
@@ -21,27 +26,34 @@ else:
 
 
 def movieFolder():
-	if (sys.platform == "win32"):
-		return "C:\\Media\\"
-	else:
-		return "/media/nas/afschuld/Movies"
+    # check to see if the user passes in a movies directory
+    env_movie = os.environ.get('MOVIE')
+    if env_movie:
+        return env_movie
+    
+    if (sys.platform == "win32"):
+        return "C:\\Media\\"
+    else:
+        return "/media/nas/afschuld/Movies"
 
 def tvFolder():
-	if (sys.platform == "win32"):
-		return "C:\\Media\\TV"
-	else:
-		return "/media/nas/afschuld/TV Shows/"
+    env_tv = os.environ.get('TV')
+    if env_tv:
+        return env_tv
+    
+    if (sys.platform == "win32"):
+        return "C:\\Media\\TV"
+    else:
+        return "/media/nas/afschuld/TV Shows/"
 
 def makeSureTargetDirExists(targetdir):
     if isdir(targetdir):
         return
-    pathparts = os.path.split(targetdir)
-    makeSureTargetDirExists(pathparts[0])
-    os.system('mkdir ' + pipes.quote(targetdir))
-    #print('mkdir ' + pipes.quote(pathparts[1]))
+    os.makedirs(targetdir)
+    debuglog('mkdir ' + pipes.quote(pathparts[1]))
     if (platform.system() != "Windows"):
         os.system('chmod 775 ' + pipes.quote(targetdir))
-        #print('chmod 775 ' + pipes.quote(targetdir))
+        debuglog('chmod 775 ' + pipes.quote(targetdir))
 
 def link(source, target, targetdir):
     makeSureTargetDirExists(targetdir)
@@ -50,21 +62,26 @@ def link(source, target, targetdir):
         flag = "/H"
         if (os.path.isdir(source)):
             flag = "/J"
-        
-        cmd += quote_args([flag, source, target])
+
+        cmd += quote_args([flag, target, source])
         os.system(cmd)
     else:
         #cmd = 'mkdir ' + pipes.quote(targetdir)
         #print cmd
         #os.system(cmd)
-        cmd = 'ln ' + pipes.quote(source) +' '+ pipes.quote(targetdir)
-        #print cmd
-        os.system(cmd)
-        cmd = 'chmod 664 ' + pipes.quote(target)
-        #print cmd
+        target_file = pipes.quote(targetdir)
+        if os.path.exists(target_file):
+            print("Not re-creating hardlink at: " + target_file)
+        else:
+            cmd = 'ln ' + pipes.quote(source) +' '+ target_file
+            debuglog(cmd)
+            os.system(cmd)
+        cmd = 'chmod 775 ' + pipes.quote(target)
+        debuglog(cmd)
+        
         os.system(cmd)
         cmd = 'chmod 775 ' + pipes.quote(targetdir)
-        #print cmd
+        debuglog(cmd)
         os.system(cmd)
 
     return "linked " + source + " => " + targetdir
@@ -87,7 +104,7 @@ def extract(source, target):
         a = []
     else:
         b = []
-    
+
     return "extracted " + source + " => " + target
 
 def findShow(showName):
