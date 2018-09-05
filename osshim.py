@@ -24,13 +24,13 @@ def movieFolder():
 	if (sys.platform == "win32"):
 		return "C:\\Media\\"
 	else:
-		return "/media/MediaTransfer/Movies"
+		return "/media/nas/afschuld/Movies"
 
 def tvFolder():
 	if (sys.platform == "win32"):
 		return "C:\\Media\\TV"
 	else:
-		return "/media/MediaTransfer/TV Shows/"
+		return "/media/nas/afschuld/TV Shows/"
 
 def makeSureTargetDirExists(targetdir):
     if isdir(targetdir):
@@ -60,7 +60,7 @@ def link(source, target, targetdir):
         cmd = 'ln ' + pipes.quote(source) +' '+ pipes.quote(targetdir)
         #print cmd
         os.system(cmd)
-        cmd = 'chmod 775 ' + pipes.quote(target)
+        cmd = 'chmod 664 ' + pipes.quote(target)
         #print cmd
         os.system(cmd)
         cmd = 'chmod 775 ' + pipes.quote(targetdir)
