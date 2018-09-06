@@ -50,7 +50,7 @@ def makeSureTargetDirExists(targetdir):
     if isdir(targetdir):
         return
     os.makedirs(targetdir)
-    debuglog('mkdir ' + pipes.quote(pathparts[1]))
+    debuglog('mkdir ' + targetdir)
     if (platform.system() != "Windows"):
         os.system('chmod 775 ' + pipes.quote(targetdir))
         debuglog('chmod 775 ' + pipes.quote(targetdir))
