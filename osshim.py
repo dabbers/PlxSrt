@@ -34,7 +34,7 @@ def movieFolder():
     if (sys.platform == "win32"):
         return "C:\\Media\\"
     else:
-        return "/media/nas/afschuld/Movies"
+        return "/afschuld/Movies/"
 
 def tvFolder():
     env_tv = os.environ.get('TV')
@@ -44,7 +44,7 @@ def tvFolder():
     if (sys.platform == "win32"):
         return "C:\\Media\\TV"
     else:
-        return "/media/nas/afschuld/TV Shows/"
+        return "/afschuld/TV Shows/"
 
 def makeSureTargetDirExists(targetdir):
     if isdir(targetdir):
