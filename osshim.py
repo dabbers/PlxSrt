@@ -49,9 +49,14 @@ def tvFolder():
 def makeSureTargetDirExists(targetdir):
     if isdir(targetdir):
         return
-    os.makedirs(targetdir)
-    debuglog('mkdir ' + targetdir)
-    if (platform.system() != "Windows"):
+    if (platform.system() == "Windows"):
+        os.makedirs(targetdir)
+        debuglog('created directories to ' + targetdir)
+    else:
+        pathparts = os.path.split(targetdir)
+        makeSureTargetDirExists(pathparts[0])
+        os.system('mkdir ' + pipes.quote(targetdir))
+        debuglog('mkdir ' + pipes.quote(pathparts[1]))
         os.system('chmod 775 ' + pipes.quote(targetdir))
         debuglog('chmod 775 ' + pipes.quote(targetdir))
 
