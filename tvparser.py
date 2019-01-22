@@ -38,7 +38,7 @@ def getCleanNameFromPath(fullpath):
     if (tv == None or len(name.strip()) == 0):
         name = cleanWithRegex(os.path.splitext(os.path.basename(fullpath))[0])
 
-    return name
+    return name.title()
 
 def cleanWithRegex(name):
     match = nameRgx.findall(name)

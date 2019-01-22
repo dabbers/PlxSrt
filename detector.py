@@ -28,8 +28,9 @@ def _isSubtitle(fullpath): #{
 #}
 
 def _isKnownNoOp(fullpath): #{
+    print(fullpath)
     fn, ext = os.path.splitext(fullpath.lower())
-    return (ext[1] == "r" or ext in _ignore)
+    return ( (len(ext) > 1 and ext[1] == "r" and ext != "rar") or ext in _ignore)
 #}
 
 def _couldBeSubs(fullpath):

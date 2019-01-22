@@ -2,6 +2,7 @@ import os
 import sys
 import platform
 import pipes
+import subprocess
 
 ###
 ### The point of this file is to abstract out our OS level calls so we can shim
@@ -24,27 +25,20 @@ else:
     def quote_args(seq):
         return ' '.join(quote(arg) for arg in seq)
 
-
 def movieFolder():
     # check to see if the user passes in a movies directory
-    env_movie = os.environ.get('MOVIE')
+    env_movie = os.environ.get('PLXSRT_MOVIES')
     if env_movie:
         return env_movie
     
-    if (sys.platform == "win32"):
-        return "C:\\Media\\"
-    else:
-        return "/afschuld/Movies/"
+    return "/movies"
 
 def tvFolder():
-    env_tv = os.environ.get('TV')
+    env_tv = os.environ.get('PLXSRT_TV')
     if env_tv:
         return env_tv
     
-    if (sys.platform == "win32"):
-        return "C:\\Media\\TV"
-    else:
-        return "/afschuld/TV Shows/"
+    return "/tv"
 
 def makeSureTargetDirExists(targetdir):
     if isdir(targetdir):
@@ -104,11 +98,19 @@ def allowFolderLink():
         return False
 
 def extract(source, target):
+    debuglog("Must extract " + source + " to " + target)
     if (platform.system() == "Windows"):
         # Todo: unrar here
-        a = []
+        cmd = "unrar"
+        if (source.endswith(".zip")):
+            cmd = "unzip"
+        debuglog("Command to run: " + cmd)
     else:
-        b = []
+        cmd = "unrar"
+        if (source.endswith(".zip")):
+            cmd = "unzip"
+        
+        subprocess.call([cmd, "e", source, target + "/"])
 
     return "extracted " + source + " => " + target
 

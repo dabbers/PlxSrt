@@ -175,8 +175,8 @@ tests_input_expected = [
                 'Output': {
                     'action': 'link',
                     'source': "C:\\downloads\\Don't look down\\Don't look down 1080p.mkv",
-                    'target': "C:\\Media\\Movies\\Don't look down\\Don't look down 1080p.mkv",
-                    'targetdir': "C:\\Media\\Movies\\Don't look down"
+                    'target': "C:\\Media\\Movies\\Don'T Look Down\\Don't look down 1080p.mkv",
+                    'targetdir': "C:\\Media\\Movies\\Don'T Look Down"
                 },
                 'Result': True
             }
